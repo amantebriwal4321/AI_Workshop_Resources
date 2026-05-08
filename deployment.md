@@ -55,14 +55,23 @@ Your project needs these two files to deploy:
 Open your chatbot project in your AI assistant and paste:
 
 ```text
-I want to deploy this chatbot to the internet using Render.com (free tier). Please help me step-by-step:
+I want to deploy this chatbot to the internet using Render.com (free tier). Please execute this entire process for me step-by-step. Do NOT skip any step.
 
-1. PREP CHECK: Make sure I have a `requirements.txt` and a `Procfile` in this project. If not, create them. The Procfile should contain: `web: uvicorn main:app --host 0.0.0.0 --port $PORT`
-2. SAFETY CHECK: Make sure `.gitignore` includes `.env` so my API key doesn't get pushed to GitHub.
-3. GIT PUSH: Help me push this project to GitHub if it's not already there. Ask me for my GitHub repo URL.
-4. RENDER SETUP: Walk me through creating a free account on render.com, connecting my GitHub repo, and deploying. Tell me exactly what to click.
-5. ENVIRONMENT VARIABLE: Once deployed, tell me how to add my GEMINI_API_KEY as an environment variable in Render's dashboard (Settings → Environment → Add Environment Variable).
-6. FINAL TEST: Give me the live URL and tell me to test it!
+1. PREP CHECK: Make sure I have a `requirements.txt` and a `Procfile` in this project. If the `requirements.txt` doesn't exist, create one by running `pip freeze > requirements.txt`. If the `Procfile` doesn't exist, create it with exactly this line: `web: uvicorn main:app --host 0.0.0.0 --port $PORT`
+2. SAFETY CHECK: Make sure a `.gitignore` file exists and includes `.env` so my API key doesn't get pushed to GitHub.
+3. GIT PUSH: Push this project to GitHub. My repo URL is: [PASTE YOUR GITHUB REPO URL HERE]. Add the remote, commit all files, and push to the main branch.
+4. RENDER ACCOUNT: Tell me to go to render.com, click "Get Started for Free", and sign in with GitHub. No payment info is needed.
+5. CREATE WEB SERVICE: Tell me to click "New +" → "Web Service" in the Render dashboard. Then tell me to connect my GitHub repo and fill in these EXACT settings:
+   - Name: autoexpert-bot
+   - Region: Singapore (Southeast Asia)
+   - Branch: main
+   - Runtime: Python 3
+   - Build Command: pip install -r requirements.txt
+   - Start Command: uvicorn main:app --host 0.0.0.0 --port $PORT
+   - Instance Type: Free
+   Then click "Deploy Web Service" and wait 2-3 minutes.
+6. ADD API KEY (CRITICAL): Once deployed, the site will show a 403 error because it's missing the API key. Tell me to go to my Render service dashboard → click "Environment" in the left sidebar → click "Add Environment Variable" → set Key as `GEMINI_API_KEY` and Value as my actual API key from my `.env` file → click "Save Changes". Render will auto-redeploy.
+7. FINAL TEST: My live URL will be https://autoexpert-bot.onrender.com. Tell me to open it and test my chatbot. Remind me that the first load takes ~30 seconds because the free tier sleeps after 15 minutes of inactivity.
 ```
 
 ---
