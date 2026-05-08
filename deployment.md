@@ -17,8 +17,21 @@ You **must** complete these steps before deploying. This only takes ~5 minutes.
 4. Fill in your details:
    - **Country**: India
    - **Account type**: Individual
-   - **Payment method**: Add a debit/credit card (you will **NOT** be charged — Google requires this only for verification)
-5. Click **"Start my free trial"**. You now have **$300 in free credits** for 90 days.
+   - **Payment method**: Select **UPI: QR code** (easiest!)
+   
+   > ⚠️ **"Wait, I have to pay?!"** — NO! Google says it right on the page: *"Don't worry, this trial is still free."* They collect payment info **only to verify you're a real person**. You will **NOT** be charged. There are **no automatic charges** — you only pay if you manually upgrade later (which you won't need to).
+   
+5. Click **"Start free"**. A popup will appear:
+   - **On your laptop**: You'll see a **QR code** with a 5-minute timer. Open any UPI app (GPay, PhonePe, Paytm, etc.) and scan it.
+   - **On your phone**: Your UPI app will show an **"Autopay details"** screen. Don't panic! Here's what it says:
+     - **Payment Limit**: Up to ₹15,000
+     - **Note**: *"This isn't a charge"*
+     - **You can pause or cancel this Autopay anytime**
+   - Tap **"Continue"** → Approve with your UPI PIN.
+   
+   > 💡 **This is NOT a payment.** It's a UPI mandate (like saving a card). Google will **never charge you** unless you manually upgrade to a paid account. You can cancel the autopay from your UPI app at any time after setup.
+
+6. Once approved, you'll be redirected to the Google Cloud Console. You now have **$300 in free credits** for 90 days! 🎉
 
 ### Step 2: Create a New Project
 1. At the top-left of the console, click the **project dropdown** (it may say "My First Project" or "Select a project").
