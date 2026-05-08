@@ -219,3 +219,62 @@ gcloud run services update autoexpert-bot --update-env-vars GEMINI_API_KEY=YOUR_
 ```
 
 Refresh your live URL, and you're done! 🎉
+
+---
+---
+
+## 🔧 Troubleshooting: Common Errors After Deployment
+
+### ❌ Error: 403 Forbidden / "API_KEY_INVALID"
+**Cause**: Your `GEMINI_API_KEY` is missing or wrong on the server.
+
+**Fix (Render)**:
+1. Go to your Render service → **Environment** → **Add Environment Variable**
+2. Key: `GEMINI_API_KEY` → Value: your actual API key
+3. Click **Save Changes** → wait for redeploy
+
+**Fix (Google Cloud Run)**:
+```bash
+gcloud run services update autoexpert-bot --update-env-vars GEMINI_API_KEY=YOUR_KEY_HERE --region asia-south1
+```
+
+---
+
+### ❌ Error: Build Failed (Render)
+**Cause**: Missing `requirements.txt` or wrong Python version.
+
+**Fix**:
+1. Make sure `requirements.txt` exists in your project root
+2. If missing, run locally: `pip freeze > requirements.txt`
+3. Push to GitHub: `git add . && git commit -m "fix" && git push`
+4. Render will auto-rebuild
+
+---
+
+### ❌ Error: Application Error / "This page isn't working"
+**Cause**: Your app crashed on startup. Usually a missing file or import error.
+
+**Fix**:
+1. **Render**: Go to your service → **Logs** (left sidebar) → read the red error messages
+2. **Google Cloud Run**: Run `gcloud run services logs read autoexpert-bot --region asia-south1`
+3. Common causes:
+   - Missing `Procfile` → create it with `web: uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - Wrong filename → make sure your main file is called `main.py`
+   - Missing dependency → add it to `requirements.txt` and redeploy
+
+---
+
+### ⏳ Site Takes 30+ Seconds to Load (Render Free Tier)
+**This is normal!** Render's free tier sleeps after 15 minutes of inactivity. The first visit wakes it up (~30 seconds). After that, it loads instantly.
+
+**Not a bug — just the free tier.** If you need instant loading, use Google Cloud Run (Option 2).
+
+---
+
+### ❌ Error: "Port already in use" or "Address already in use"
+**Cause**: Your `Procfile` or start command has a hardcoded port number.
+
+**Fix**: Make sure your `Procfile` uses `$PORT` (not a fixed number like `8000`):
+```
+web: uvicorn main:app --host 0.0.0.0 --port $PORT
+```
